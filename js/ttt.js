@@ -25,7 +25,7 @@ const message = document.querySelector("h2");
 ///////////////////// EVENT LISTENERS ///////////////////////////////
 window.onload = init();
 document.getElementById("board").onclick = takeTurn;
-document.getElementById("reset-button").onclick = init();
+document.getElementById("reset-button").onclick = init;
 document.getElementById("x_turn").onclick = chooseTurnX
 document.getElementById("o_turn").onclick = chooseTurnO
 ///////////////////// FUNCTIONS /////////////////////////////////////
@@ -49,8 +49,8 @@ function init() {
 }
 
 function render() {
-  board.forEach(function(mark, ttt) {
-    squares[ttt].textContent = mark;
+  board.forEach(function(mark, index) {
+    squares[index].textContent = mark;
   });
    if (win == "X") {
      console.log("x")
