@@ -6,7 +6,7 @@
 body {
   text-align: center;
   font-family: "Roboto", monospace;
-  background-color: #11573F;
+  background-color: white;
 }
 
 /*
@@ -16,9 +16,10 @@ body {
 
 h1 {
   margin: 0 auto;
-  font-family: "Major Mono Display", monospace;
+  font-family: "Arial", monospace;
   font-size: 48px;
   margin: 2%;
+  color: red;
 }
 
 
@@ -26,6 +27,14 @@ h2 {
   font-size: 36px;
   font-weight: lighter;
   margin: 2%;
+}
+
+h3 {
+  margin: 0 auto;
+  font-family: "Arial", monospace;
+  font-size: 30px;
+  margin: 2%;
+  color: blue;
 }
 
 table {
