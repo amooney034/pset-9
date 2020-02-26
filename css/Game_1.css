@@ -5,3 +5,11 @@ h1 {
 h2 {
   color: blue;
 }
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+}
