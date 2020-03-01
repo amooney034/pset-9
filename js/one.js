@@ -1,104 +1,291 @@
-var canvas = document.createElement("canvas");
-document.body.appendChild(canvas);
-var ctx = canvas.getContext(2d);
+///////////////////// CONSTANTS /////////////////////////////////////
+const winningConditions = [
+//horizontal
+  [35, 36, 37, 38],
+  [36, 37, 38, 39],
+  [37, 38, 39, 40],
+  [38, 39, 40, 41],
+  [28, 29, 30, 31],
+  [29, 30, 31, 32],
+  [30, 31, 32, 33],
+  [31, 32, 33, 34],
+  [21, 22, 23, 24],
+  [22, 23, 24, 25],
+  [23, 24, 25, 26],
+  [24, 25, 26, 27],
+  [14, 15, 16 ,17],
+  [15, 16, 17, 18],
+  [16, 17, 18, 19],
+  [17, 18, 19, 20],
+  [7, 8, 9 ,10],
+  [8, 9, 10, 11],
+  [9, 10, 11, 12],
+  [10, 11, 12, 13],
+  [0, 1, 2, 3],
+  [1, 2, 3, 4],
+  [2, 3, 4, 5],
+  [3, 4, 5, 6],
+//vertical
+  [35, 28, 21, 14],
+  [28, 21, 14, 7],
+  [21, 14, 7, 0],
+  [36, 29, 22, 15],
+  [29, 22, 15, 8],
+  [22, 15, 8, 1],
+  [37, 30, 23, 16],
+  [30, 23, 16, 9],
+  [23, 16, 9, 2],
+  [38, 31, 24, 17],
+  [31, 24, 17, 10],
+  [24, 17, 10, 3],
+  [39, 32, 25, 18],
+  [32, 25, 18, 11],
+  [25, 18, 11, 4],
+  [40, 33, 26, 19],
+  [33, 26, 19, 12],
+  [26, 19, 12, 5],
+  [41, 34, 27, 20],
+  [34, 27, 20, 13],
+  [27, 20, 13, 6],
+//diagonal(right)
+  [38, 32, 26, 20],
+  [37, 31, 25, 19],
+  [36, 30, 24, 18],
+  [35, 29, 23, 17],
+  [31, 25, 19, 13],
+  [30, 24, 18, 12],
+  [29, 23, 17, 11],
+  [28, 22, 16, 15],
+  [24, 18, 12, 6],
+  [23, 17, 11, 5],
+  [22, 16, 10, 4],
+  [21, 15, 9, 2],
+//diagonal(left)
+  [41, 33, 25, 17],
+  [40, 32, 24, 16],
+  [39, 31, 23, 15],
+  [38, 30, 22, 14],
+  [34, 26, 18, 10],
+  [33, 25, 27, 9],
+  [32, 24, 26, 8],
+  [31, 23, 25, 7],
+  [27, 19, 11, 3],
+  [26, 18, 10, 2],
+  [25, 17, 9, 1],
+  [24, 16, 8, 0]
+];
 
-var grid = [];
 
-var height;
-var width;
-var margin; 
-setDimensions();
+///////////////////// APP STATE (VARIABLES) /////////////////////////
+let board;
+let turn;
+let win;
+let redWins = 0;
+let yellowWins = 0;
+let ties = 0;
+let first = "Red";
+let winner;
+///////////////////// CACHED ELEMENT REFERENCES /////////////////////
+const dots = Array.from(document.querySelectorAll("#board div"));
+const message = document.querySelector("h2");
+///////////////////// EVENT LISTENERS ///////////////////////////////
+window.onload = init;
+document.getElementById("board").onclick = takeTurn;
+document.getElementById("reset-button").onclick = init;
+document.getElementById("redFirst").onclick = redFirst;
+document.getElementById("yellowFirst").onclick = yellowFirst;
+document.getElementById("reset-scoreboard").onclick = resetScoreboard;
+///////////////////// FUNCTIONS /////////////////////////////////////
 
-const GRID_CIRCLE = 0.7;
-const GRID_COLS = 7;
-const GRID_ROWS = 6;
-const MARGIN = 0.02;
-const COLOR_BACKGROUND = "blue";
-const COLOR_COMP = "red";
-const COLOR_COMP_DRK = "darkred";
-const COLOR_FRAME = "blue";
-const 
-class Cell {
-  constructor(left, top, w, h, row, col) {
-    this.bot = top + h;
-    this.left = left;
-    this.right = left + w;
-    this.top = top;
-    this.w = w;
-    this.h = h;
-    this.row = row;
-    this.col = col;
-    this.cx = left + w / 2;
-    this.cy = left + h / 2;
-    this.r = w * GRID_CIRCLE / 2;
-    this.owner = null;
-  }
-  draw(/** @type {CanvasRenderingConetext2D} */ ctx) {
-    let color = this.owner == null ? COLOR_BACKGROUND : this.owner ? COLOR_PLAY : COLOR_COMP;
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.arc(this.cx, this.cy, this.r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
+function init() {
+  board = [
+    "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "",
+  ];
 
-window.addEventListener("resize", setDimensions);
-var timeDif;
-var timeLast;
-requestAnimationFrame(loop);
-
-function loop(timeNow) {
-  if (!timeLast) {
-  timeLast = timeNow;
-  }
-  timeDif = (timeNow - timeLast) / 1000;
-  timeLast = timeNow;
-  
-  drawBoard();
-  
-  requestAnimationFrame(loop);
-}
-
-function createBoard() {
-  grid = [];
-  
-  let cell, marginX, marginY;
-  
-  if ((width - margin * 2) * GRID_ROWS / GRID_COLS < height - margin * 2) {
-    cell = (width - margin * 2) / GRID_COLS;
-    marginX = margin;
-    marginY = (height - cell * GRID_ROWS) / 2;
-}
-
-  else {
-    cell = (height - margin * 2) / GRID_ROWS);
-    marginX = (width - cell * GRID_COLS) / 2;
-    marginY = margin; 
-  }
-  for (let i = 0; i < GRID_ROWS; i++) {
-    grid[i] = [];
-    for (let j = 0; j < GRID_COLS; j++) {
-      let left = marginX + j * cell;
-      let top = marginY + i * cell;
-      grid [i][j] = new Cell(left, top, cell, cell, i, j);
+  board.forEach(function(mark, index) {
+    if (dots[index].classList.contains("Red")) {
+      dots[index].classList.remove("Red")
     }
-}
-}
-  
-function drawBoard() {
-  ctx.fillStyle = COLOR_BACKGROUND;
-  ctx.fillRect(0, 0, width, height);
+    if (dots[index].classList.contains("Yellow")) {
+      dots[index].classList.remove("Yellow")
+    }
+  });
+
+  turn = "Red"
+  win = null
+
+  if (first === "Red") {
+    turn = "Red"
+  }
+  else if (first === "Yellow") {
+    turn = "Yellow"
+  }
+
+  render();
 }
 
-function newGame() {
-  createBoard();
+
+function render() {
+  board.forEach(function(mark, index) {
+    dots[index].textContent = mark;
+  });
+
+  message.textContent =
+    win === "T" ? "It's a tie!" : win ? `${win} wins!` : `Turn: ${turn}`;
 }
 
-function setDimensions() {
-height = window.innerHeight;
-width = window.innerWidth;
-canvas.height = height;
-canvas.width = width;
-margin = MARGIN * Math.min(height, width);
-newGame();
+function takeTurn(e) {
+
+ if (e.target.id == "board") {
+    return false;
+  }
+
+if (!win) {
+let index = dots.findIndex(function(dot) {
+  return dot === e.target;
+});
+
+
+let row1 = index % 7;
+
+if (board[index] === "") {
+
+  while (board[index + 7] === "") {
+    let i = index + 7;
+    document.getElementById("dot" + i + "").classList.add(turn);
+    board[i] = turn;
+    document.getElementById("dot" + index + "").classList.remove(turn);
+    board[index] = "";
+    index = i;
+
+  }
+  if (board[index] === "") {
+    document.getElementById("dot" + index + "").classList.add(turn);
+    board[index] = turn;
+
+  }
+
+  }
+  else if (board[index] !== "") {
+    if (board[row1] === "") {
+      while (board[row1 + 7] === "") {
+        let i = row1 + 7;
+        document.getElementById("dot" + i + "").classList.add(turn);
+        board[i] = turn;
+        document.getElementById("dot" + row1 + "").classList.remove(turn);
+        board[row1] = "";
+        row1 = i;
+
+      }
+      if (board[row1] === "") {
+        document.getElementById("dot" + row1 + "").classList.add(turn);
+        board[row1] = turn;
+
+      }
+
+    }
+    else if (board[row1] !== "") {
+      return false;
+    }
+   }
+
+
+
+  turn = turn === "Red" ? "Yellow" : "Red";
+  win = getWinner();
+  if (win === "T") {
+    ties++;
+    document.getElementById("tScore").innerHTML = ties;
+  }
+
+  render();
 }
+}
+
+
+function getWinner() {
+  let winner = null;
+
+  winningConditions.forEach(function(condition, index) {
+    if (
+      board[condition[0]] &&
+      board[condition[0]] === board[condition[1]] &&
+      board[condition[1]] === board[condition[2]] &&
+      board[condition[2]] === board[condition[3]]
+    ) {
+      winner = board[condition[0]];
+      if (winner === "Red") {
+        redWins++;
+        document.getElementById("redScore").innerHTML = redWins;
+        playOKOK();
+
+      }
+      else if (winner === "Yellow") {
+        yellowWins++;
+        document.getElementById("yellowScore").innerHTML = yellowWins;
+        playOKOK();
+
+      }
+
+    }
+
+  });
+
+  return winner ? winner : board.includes("") ? null : "T";
+}
+
+function playAgain() {
+  board.forEach(function(mark, index) {
+    if (dots[index].classList.contains("Red")) {
+      dots[index].classList.remove("Red")
+    }
+    if (dots[index].classList.contains("Yellow")) {
+      dots[index].classList.remove("Yellow")
+    }
+  });
+  init()
+}
+
+function resetScoreboard() {
+  redWins = 0;
+  yellowWins = 0;
+  ties = 0;
+
+  document.getElementById("redScore").innerHTML = redWins;
+  document.getElementById("tScore").innerHTML = ties;
+  document.getElementById("yellowScore").innerHTML = yellowWins;
+}
+
+function redFirst(){
+  init();
+
+  document.getElementById("turn").innerHTML = "Turn: Red";
+  turn = "Red";
+  first = "Red"
+
+
+}
+
+function yellowFirst(){
+  init();
+
+  document.getElementById("turn").innerHTML = "Turn: Yellow";
+  turn = "Yellow";
+  first = "Yellow"
+
+}
+
+function resetScoreboard() {
+    redWins = 0;
+    yellowWins = 0;
+    ties = 0;
+
+    document.getElementById("redScore").innerHTML = redWins;
+    document.getElementById("tScore").innerHTML = ties;
+    document.getElementById("yellowScore").innerHTML = yellowWins;
+  }
