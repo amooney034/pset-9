@@ -289,3 +289,7 @@ function resetScoreboard() {
     document.getElementById("tScore").innerHTML = ties;
     document.getElementById("yellowScore").innerHTML = yellowWins;
   }
+
+function playOKOK() {
+  document.getElementById("myAudio").play();
+}
