@@ -1,16 +1,19 @@
+
+
 body {
   background-image: url("../images/cloudy.gif");
   background-size: cover;
   text-align: center;
-  color: black;
+  font-family: "Roboto", monospace;
+  color: white;
 }
 
 h1 {
   margin: 0 auto;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-family: "Major Mono Display", monospace;
   font-size: 48px;
   margin: 2%;
-  color: black;
+  color: white;
 }
 
 td {
@@ -37,7 +40,7 @@ p {
 }
 table, td, th {
   border: 1px solid white;
-  color: black;
+  color: white;
 }
 
 ul {
