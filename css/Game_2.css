@@ -2,6 +2,14 @@
   background: white;
 }
 
+h1 {
+  color: red;
+}
+
+h2 {
+  color: blue;
+}
+
 #current {
   float: center;
   color: purple;
@@ -24,6 +32,3 @@ canvas {
   margin-right: auto;
 }
 
-h1 {
-  color: red;
-}
