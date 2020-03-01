@@ -2,35 +2,6 @@
   background: white;
 }
 
-nav ul {
-  display: inline-block;
-  line-height: 50px;
-  padding: 0 20px;
-  float: center;
-  font-size: 21px;
-  font-family: monospace;
-}
-
-nav li {
-  display: inline-block;
-  line-height: 50px;
-  padding: 0 20px;
-  float: center;
-  font-size: 21px;
-  font-family: monospace;
-}
-
-nav a {
-  text-decoration: none;
-  color: purple;
-  font-family: monospace;
-}
-
-nav a:hover {
-  font-weight: bold;
-  font-family: monospace;
-}
-
 #current {
   float: center;
   color: purple;
