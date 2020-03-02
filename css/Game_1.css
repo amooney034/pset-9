@@ -1,1 +1,132 @@
+* {
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background-color: lightgrey;
+  color: white;
+  cursor: pointer;
+}
 
+body {
+  text-align: center;
+}
+
+h1 {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 48px;
+  margin: 2%;
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
+h2 {
+  font-size: 33px;
+  font-weight: lighter;
+  margin: 1%;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+h4 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 38px;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: #FEFEFE;
+  font-size: 20px;
+  margin-top: 40px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.small-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.column {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+}
+
+.wrap {
+  flex-wrap: wrap;
+  height: 474px;
+  width: 474px;
+}
+
+.square {
+  border: 1px solid white;
+  height: 156px;
+  user-select: none;
+  width: 156px;
+}
+
+
+.small-square {
+  border: 1px solid blue;
+  height: 50px;
+  user-select: none;
+  width: 50px;
+  font-size: 40px;
+  line-height: 50px;
+}
+
+.square:hover {
+  opacity: 0.70;
+  cursor: pointer;
+}
+
+.scorebox {
+  border: 1px solid blue;
+  height: 90px;
+  user-select: none;
+  width: 225px;
+}
+
+#reset-button {
+  background-color: blue;
+  border: 1px solid white;
+  color: white;
+  font-size: 21px;
+  line-height: 55px;
+  margin: 1%;
+  text-align: center;
+  width: 456px;
+  margin-bottom: 15px;
+}
+
+#reset-button:hover {
+  background-color: lightblue;
+  color: black;
+  cursor: pointer;
+}
+
+#score-keeper {
+  padding-top: 15px;
+}
+
+#score-title {
+  background-color: black;
+  color: white;
+  font-size: 30px;
+}
+
+#highlighted {
+  border-color: yellow;
+}
