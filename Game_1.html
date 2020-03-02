@@ -1,151 +1,96 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
 
-  <head>
+<head>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link href="css/Game_1.css" rel="stylesheet" type="text/css" />
+  <script defer src="js/one.js"></script>
 
-    <link href="css/Game_1.css" rel="stylesheet" type="text/css" />
-    <script defer src="js/one.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Acme&display=swap" rel="stylesheet">
+  <title>Connect Four</title>
+</head>
 
-    <title>lets gooooo</title>
+<body>
+  <center>
+    <h1>Connect-Four</h1>
+  </center>
+  <div>
+    <nav>
+      <center>
+        <li> <a href="index.html">Home</a></li>
+        <li> <a href="tic_tac_toe.html">Tic-Tac-Toe </a></li>
+        <li> <a href="brick_breaker.html">Brick Breaker</a> </li>
+        <li id="current"> Connect-Four </li>
+      </center>
+    </nav>
+  </div>
 
-  </head>
+  <table id="table">
+    <tr>
+      <th class="wins">Red Wins</th>
+      <th class="wins">Yellow Wins</th>
+      <th class="wins">Ties</th>
+    </tr>
+    <tr>
+      <td id="red_score">0</td>
+      <td id="yellow_score">0</td>
+      <td id="tie_score">0</td>
+    </tr>
 
-  <body>
+  </table>
+	<h2 id="switch">Turn: Red</h2>
+	</div>
 
-    <h1>| ULTIMATE | Tic | Tac | Toe |</h1>
+	<div class="container column">
+	<div class="wrap container" id="board">
+		<div class="circle" id="circle0"></div>
+		<div class="circle" id="circle1"></div>
+		<div class="circle" id="circle2"></div>
+		<div class="circle" id="circle3"></div>
+		<div class="circle" id="circle4"></div>
+		<div class="circle" id="circle5"></div>
+		<div class="circle" id="circle6"></div>
+		<div class="circle" id="circle7"></div>
+		<div class="circle" id="circle8"></div>
+		<div class="circle" id="circle9"></div>
+		<div class="circle" id="circle10"></div>
+		<div class="circle" id="circle11"></div>
+		<div class="circle" id="circle12"></div>
+		<div class="circle" id="circle13"></div>
+		<div class="circle" id="circle14"></div>
+		<div class="circle" id="circle15"></div>
+		<div class="circle" id="circle16"></div>
+		<div class="circle" id="circle17"></div>
+		<div class="circle" id="circle18"></div>
+		<div class="circle" id="circle19"></div>
+		<div class="circle" id="circle20"></div>
+		<div class="circle" id="circle21"></div>
+		<div class="circle" id="circle22"></div>
+		<div class="circle" id="circle23"></div>
+		<div class="circle" id="circle24"></div>
+		<div class="circle" id="circle25"></div>
+		<div class="circle" id="circle26"></div>
+		<div class="circle" id="circle27"></div>
+		<div class="circle" id="circle28"></div>
+		<div class="circle" id="circle29"></div>
+		<div class="circle" id="circle30"></div>
+		<div class="circle" id="circle31"></div>
+		<div class="circle" id="circle32"></div>
+		<div class="circle" id="circle33"></div>
+		<div class="circle" id="circle34"></div>
+		<div class="circle" id="circle35"></div>
+		<div class="circle" id="circle36"></div>
+		<div class="circle" id="circle37"></div>
+		<div class="circle" id="circle38"></div>
+		<div class="circle" id="circle39"></div>
+		<div class="circle" id="circle40"></div>
+		<div class="circle" id="circle41"></div>
 
-    <div class="container column">
+	</div>
 
-      <h2> Turn: X </h2>
+<div class="container">
+	<div id="reset-button">Play Again!</div>
+</div>
+</div>
 
-      <div class="container wrap" id="board">
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-
-        <div class="square small-container">
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-          <div class="small-square"></div>
-        </div>
-      </div>
-
-      <div class="container" id="score-keeper">
-        <div class="scorebox" id="score-title"> X <h3> 0 </h3> </div>
-        <div class="scorebox" id="score-title"> O <h4> 0 </h4> </div>
-      </div>
-
-      <div id="reset-button">Play Again!</div>
-
-    </div>
-
-    <a href="index.html">Return to the Home Page</a>
-
-  </body>
-
-</html>
+</body>
